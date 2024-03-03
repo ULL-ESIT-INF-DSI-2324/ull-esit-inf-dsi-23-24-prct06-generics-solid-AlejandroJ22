@@ -4,7 +4,7 @@
 
 # Informe práctica 6 - Clases e interfaces genéricas. Principios SOLID.
 
-![Imagen Título Principios SOLID](images/SOLID-image.jpg)
+![Imagen Título Principios SOLID](images/SOLID-image.png)
 
 ## Alejandro Javier Aguiar Pérez
 > [alu0101487168@ull.edu.es](mailto:alu0101487168@ull.edu.es)
@@ -358,19 +358,53 @@ abstract class PrinterScanner implements PrinterScannerInterface {
 
 ## Ejercicio 5 Servicio de mensajería
 
+Lo primero es que no cumple con el principio de segregación de interfaces, ya que no hay ninguna interfaz implementada, además se puede mejorar la escalabilidad del programa si nos basamos en el principio de dependencia inversa y creamos una clase generica que use la siguiente interfaz como tipo:
+
+```ts
+/**
+ * Interfaz que representa un servicio de notificación.
+ */
+interface NofierMessages {
+  /**
+   * Método para enviar una notificación.
+   * @param message: el mensaje que se enviará.
+   */
+  notify(message: string): void;
+}
+```
+
+De esta manera si queremos en un futuro añadir más tipos de notificaciones no tenemos que modificar la clase *Notifier* que ahora usa la interfaz como tipo:
+
+```ts
+class Notifier<T extends NofierMessages>;
+```
+
+Las otras dos clases simplemente implementan *NotifierMessages*.
+
 > **[Volver al índice](#índice)**
 
+## Ejercicio PE
+
+El ejercicio planteado en la clase era el de crear una clase génerica *SearchableCollection* que implementase dos interfaces: *Collectable* y *Searchable*. Y la clase debia de contener objetos del tipo string o del tipo numeric, entonces lo que plantee para hacer este ejercicio fue:
+
+- Interfaz Collectable:
+Define métodos para añadir, obtener, y remover elementos de una colección, así como para obtener el número total de elementos en la colección.
+
+- Interfaz Searchable:
+Extiende la interfaz Collectable y agrega un método search que permite buscar elementos dentro de la colección.
+
+- Clase abstracta SearchableCollection:
+Es la clase padre del programa, contiene un array de obejetos de **tipo génerico** y define todos los métodos de la interfaz *Collectable* que no necesitan de ninguna distinción entre tipos para poder funcionar, son métodos que funcionan para cualquier tipo básciamente. Y declara como **abstracto** el método *search* ya que es diferente buscar una variable *number* a una variable *string*.
+
+- Clases NumericSearchableCollection y StringSearchableCollection:
+Extienden *SearchableCollection* y proporcionan implementaciones específicas de los métodos de búsqueda para números y cadenas, respectivamente. *StringSearchableCollection* no hace distinción entre mayúsculas y minúsculas.
+
 ## Conclusiones
+
+Esta práctica me ha servido para poder seguir mejorando en el planteamiento de clases, clases abstractas y genéricas. Durante esta práctica, he aprendido que la aplicación de los principios SOLID puede conducir a un código más limpio, modular y fácil de mantener. También he visto cómo la adhesión a estos principios puede mejorar la escalabilidad de un sistema a lo largo del tiempo. La utilización de herramientas de análisis de cobertura como Coveralls no sólo es útil para evaluar la calidad del código, sino que también proporciona una visión general de la efectividad de las pruebas unitarias, el número de líneas sin revisar en los tests.
 
 ## Referencias
 
 [Principios SOLID](https://samueleresca.net/solid-principles-using-typescript/)
 [Coveralls](https://coveralls.io/repos/new)
 [Elementos Básicos Facturas](https://www.anfix.com/blog/como-hacer-facturas/informacion-en-facturas)
-
-
-Ejercicio 5: lo primero es que no cumple con el principio de segregación de interfaces, ya que no hay ninguna interfaz implementada, luego podemos implementar una interfaz que se use como tipo del atributo privado de la case notifier para hacer nuestro código mucho más legible que usando una composición de tipos de las otras dos clases, ya que ambas clases son bastante parecidas, pero creo que para este programa es mucho mejor crear una clase abstracta que implemente de diferente manera el metodo sendNotification en sus dos hijos.
-
-Ejercicio PE:
-
-Nota en el ejercicio 5 hubo un problema al llamar a la interfaz Notification ya que ya hay una API definida que implementaba de manera muy diferente la interfaz
