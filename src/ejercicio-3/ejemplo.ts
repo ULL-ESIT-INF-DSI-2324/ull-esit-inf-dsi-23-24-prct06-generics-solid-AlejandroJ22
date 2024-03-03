@@ -1,4 +1,4 @@
-import { RootFileManager, ReadableFile, WriteableFile } from "./gestor_ficheros";
+import { RootFileManager, ReadableFile, WriteableFile } from "./gestor-ficheros";
 
 // Ruta del archivo
 const filePath = "test.txt";

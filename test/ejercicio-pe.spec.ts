@@ -1,7 +1,7 @@
 import "mocha";
 import { expect } from "chai";
 
-import { NumericSearchableCollection, StringSearchableCollection } from "../src/ejercicios_pe/ejercicio";
+import { NumericSearchableCollection, StringSearchableCollection } from "../src/ejercicios-pe/ejercicio";
 
 describe("Numeric Collection:", () => {
   it("getItem", () => {

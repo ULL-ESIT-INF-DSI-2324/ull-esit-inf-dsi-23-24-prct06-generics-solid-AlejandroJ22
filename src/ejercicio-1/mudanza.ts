@@ -20,7 +20,7 @@ interface BoxInterface<T extends Houseware<any>> {
 /**
  * Clase genérica Houseware que puede representar cualquier tipo de mueble.
  */
-class Houseware<T extends HousewareInterface> {
+export class Houseware<T extends HousewareInterface> {
   /**
    * Crea una nueva instancia de la clase Houseware.
    * @param houseware El mueble.
@@ -31,7 +31,7 @@ class Houseware<T extends HousewareInterface> {
 /**
  * Clase Box que puede almacenar muebles de cualquier tipo.
  */
-class Box<T extends Houseware<any>> {
+export class Box<T extends Houseware<any>> {
   private housewares: T[];
 
   /**
@@ -64,7 +64,7 @@ class Box<T extends Houseware<any>> {
    * @note Se guardan en un array y luego se muestran desde dicho array por preferencia personal.
    */
   listHouseware(): string[] {
-    console.log("Enseres en la caja:");
+    // console.log("Enseres en la caja:");
     let housewares_array: string[] = [];
     this.housewares.forEach((item) =>
       housewares_array.push(item.houseware.name),
@@ -83,29 +83,3 @@ class Box<T extends Houseware<any>> {
     } else return false;
   }
 }
-
-// Ejemplo de uso
-const box = new Box<Houseware<{ name: string }>>(); // Crear una caja genérica
-
-// Añadir algunos enseres a la caja
-const mesa = new Houseware({ name: "Mesa" });
-const silla = new Houseware({ name: "Silla" });
-const nevera = new Houseware({ name: "Nevera" });
-
-box.addHouseware(mesa);
-box.addHouseware(silla);
-box.addHouseware(nevera);
-
-// Listar enseres en la caja
-console.log(box.listHouseware());
-
-// Buscar un enser en la caja
-if (box.searchHouseware("Mesa")) {
-  console.log("Encontrado");
-} else {
-  console.log("El enser no se encontró.");
-}
-
-// Eliminar un enser de la caja
-box.removeHouseware("Mesa");
-console.log(box.listHouseware());

@@ -1,6 +1,5 @@
 import * as fs from "fs";
 
-
 /**
  * Interfaz de un gestor de archivos.
  */
@@ -10,7 +9,7 @@ interface FileManagerInterface {
    * @returns El contenido del archivo como una cadena de texto.
    */
   readFile(): string;
-  
+
   /**
    * Escribe datos en el archivo.
    * @param data Los datos a escribir en el archivo.
@@ -47,12 +46,7 @@ export class RootFileManager extends FileManager {
       const content: string = fs.readFileSync(this.filePath, "utf-8");
       return content;
     } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error al leer el archivo:", error.message);
-      } else {
-        console.error("Error desconocido al leer el archivo:", error);
-      }
-      return "";
+      throw new Error("Error al leer el archivo:");
     }
   }
 
@@ -65,11 +59,7 @@ export class RootFileManager extends FileManager {
       fs.writeFileSync(this.filePath, data, "utf-8");
       console.log("Archivo escrito exitosamente.");
     } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error al escribir en el archivo:", error.message);
-      } else {
-        console.error("Error desconocido al escribir en el archivo:", error);
-      }
+      throw new Error("Error al escribir en el archivo:");
     }
   }
 }
@@ -92,12 +82,7 @@ export class ReadableFile extends FileManager {
       const content: string = fs.readFileSync(this.filePath, "utf-8");
       return content;
     } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error al leer el archivo:", error.message);
-      } else {
-        console.error("Error desconocido al leer el archivo:", error);
-      }
-      return "";
+      throw new Error("Error al leer el archivo:");
     }
   }
 
@@ -136,11 +121,7 @@ export class WriteableFile extends FileManager {
       fs.writeFileSync(this.filePath, data, "utf-8");
       console.log("Archivo escrito exitosamente.");
     } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error al escribir en el archivo:", error.message);
-      } else {
-        console.error("Error desconocido al escribir en el archivo:", error);
-      }
+      throw new Error("Error al escribir en el archivo:");
     }
   }
 }

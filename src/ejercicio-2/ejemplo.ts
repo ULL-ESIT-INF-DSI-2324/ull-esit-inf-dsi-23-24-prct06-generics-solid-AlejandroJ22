@@ -1,5 +1,5 @@
-import { SimpleInvoice } from "./facturacion_basica";
-import { DiscountedInvoice } from "./facturacion_descuento";
+import { SimpleInvoice } from "./facturacion-basica";
+import { DiscountedInvoice } from "./facturacion-descuento";
 
 // Ejemplo de uso
 const simple_invoice = new SimpleInvoice(
