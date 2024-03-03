@@ -1,9 +1,17 @@
 /**
- * Interfaz para representar cualquier tipo de mueble.
+ * Interfaz para representar un mueble que contenga al 
+ * menos un atributo que sirva como nombre.
  * @note Por ahora solo con un atributo string.
  */
-interface HousewareInterface {
+interface HousewareNameInterface {
   name: string;
+}
+
+/**
+ * Interfaz para representar un mueble.
+ */
+interface HousewareInterface<T> {
+  houseware: T;
 }
 
 /**
@@ -20,7 +28,7 @@ interface BoxInterface<T extends Houseware<any>> {
 /**
  * Clase genérica Houseware que puede representar cualquier tipo de mueble.
  */
-export class Houseware<T extends HousewareInterface> {
+export class Houseware<T extends HousewareNameInterface> implements HousewareInterface<T> {
   /**
    * Crea una nueva instancia de la clase Houseware.
    * @param houseware El mueble.
@@ -31,7 +39,7 @@ export class Houseware<T extends HousewareInterface> {
 /**
  * Clase Box que puede almacenar muebles de cualquier tipo.
  */
-export class Box<T extends Houseware<any>> {
+export class Box<T extends Houseware<any>> implements BoxInterface<T> {
   private housewares: T[];
 
   /**
